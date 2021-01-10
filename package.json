@@ -10,5 +10,8 @@
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.3.2"
   }
 }

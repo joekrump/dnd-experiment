@@ -1,0 +1,10 @@
+{
+  "name": "dnd-experiment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "krump.joseph@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "snowpack": "^2.18.5"
+  }
+}

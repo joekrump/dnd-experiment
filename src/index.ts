@@ -1,9 +1,3 @@
-
-/**
- * This file is just a silly example to show everything working in the browser.
- * When you're ready to start on your site, clear the file. Happy hacking!
- **/
-
 import confetti from 'canvas-confetti';
 
 confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
@@ -11,16 +5,62 @@ confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
   useWorker: true,
 })({ particleCount: 200, spread: 200 });
 
-function handleDragStart(element: HTMLElement) {
-  element.style.opacity = '0.2';
-}
+document.addEventListener('DOMContentLoaded', (_e) => {
+  let dragSrcEl: HTMLDivElement;
 
-function handleDragEnd(element: HTMLElement) {
-  element.style.opacity = '1';
-}
+  function handleDragStart(e: DragEvent, el: HTMLDivElement) {
+    el.style.opacity = '0.4';
 
-let items = document.querySelectorAll('.container .box') as NodeListOf<HTMLElement>;
-items.forEach(function(item: HTMLElement) {
-  item.addEventListener('dragstart', () => handleDragStart(item), false);
-  item.addEventListener('dragend', () => handleDragEnd(item), false);
+    dragSrcEl = el;
+
+    if (e.dataTransfer !== null) {
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer?.setData('text/html', el.innerHTML);
+    }
+  }
+
+  function handleDragEnd(el: HTMLDivElement) {
+    el.style.opacity = '1';
+
+    items.forEach(function (item) {
+      item.classList.remove('over');
+    });
+  }
+
+  function handleDragOver(e: DragEvent) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+
+    return false;
+  }
+
+  function handleDrop(e: DragEvent, el: HTMLDivElement) {
+    e.stopPropagation(); // stops the browser from redirecting.
+
+    if (dragSrcEl !== el) {
+      dragSrcEl.innerHTML = el.innerHTML;
+      el.innerHTML = e.dataTransfer?.getData('text/html') ?? "";
+    }
+
+    return false;
+  }
+
+  function handleDragEnter(el: HTMLDivElement) {
+    el.classList.add('over');
+  }
+
+  function handleDragLeave(el: HTMLDivElement) {
+    el.classList.remove('over');
+  }
+
+  let items = document.querySelectorAll('.container .box') as NodeListOf<HTMLDivElement>;
+  items.forEach(function(item) {
+    item.addEventListener('dragstart', (e) => handleDragStart(e, item), false);
+    item.addEventListener('dragover', handleDragOver, false);
+    item.addEventListener('dragenter', () => handleDragEnter(item), false);
+    item.addEventListener('dragleave', () => handleDragLeave(item), false);
+    item.addEventListener('dragend', () => handleDragEnd(item), false);
+    item.addEventListener('drop', (e) => handleDrop(e, item), false);
+  });
 });

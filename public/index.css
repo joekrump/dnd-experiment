@@ -16,6 +16,14 @@ h1 {
   cursor: move;
 }
 
+.box.over {
+  border: 3px dotted #666;
+}
+
+[draggable] {
+  user-select: none;
+}
+
 #img {
   display: block;
   margin: auto;

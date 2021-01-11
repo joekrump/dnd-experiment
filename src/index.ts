@@ -1,10 +1,3 @@
-import confetti from 'canvas-confetti';
-
-confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
-  resize: true,
-  useWorker: true,
-})({ particleCount: 200, spread: 200 });
-
 document.addEventListener('DOMContentLoaded', (_e) => {
   let dragSrcEl: HTMLDivElement;
 
@@ -64,3 +57,5 @@ document.addEventListener('DOMContentLoaded', (_e) => {
     item.addEventListener('drop', (e) => handleDrop(e, item), false);
   });
 });
+
+export {};

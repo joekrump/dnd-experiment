@@ -3,8 +3,10 @@ h1 {
 }
 
 .container {
+  height: 100vh;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   gap: 10px;
 }
 
@@ -14,6 +16,14 @@ h1 {
   border-radius: .5em;
   padding: 10px;
   cursor: move;
+}
+
+.box.top {
+  grid-row: 1;
+}
+
+.box.bottom {
+  grid-row: 5;
 }
 
 .box.over {

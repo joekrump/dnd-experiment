@@ -19,7 +19,5 @@
     "lint": "prettier --check \"src/**/*.{ts,js}\"",
     "test": "echo \"This template does not include a test runner by default.\" && exit 1"
   },
-  "dependencies": {
-    "canvas-confetti": "^1.3.2"
-  }
+  "dependencies": {}
 }
